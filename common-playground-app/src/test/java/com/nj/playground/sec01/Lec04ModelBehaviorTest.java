@@ -27,7 +27,15 @@ public class Lec04ModelBehaviorTest extends AbstractTest {
         * */
     }
 
-
+    @ParameterizedTest
+    @ValueSource(doubles = {0.0, 1.5})
+    public void temperature(double temperature) {
+        var prompt = "Suggest a name for my new coffee shop. Return only one word.";
+        var chatOptionsBuilder = ChatOptions.builder()
+                                            .temperature(temperature);
+        IntStream.rangeClosed(1, 3)
+                 .forEach(i -> this.executePrompt(prompt, chatOptionsBuilder));
+    }
 
     private void executePrompt(String prompt, ChatOptions.Builder<?> builder) {
         var response = this.chatClient.prompt(prompt)
