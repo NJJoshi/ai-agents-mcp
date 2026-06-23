@@ -13,9 +13,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Lec11MovieRecommenderTest extends AbstractTest {
+public class MovieRecommenderTest extends AbstractTest {
 
-    private static final Logger log = LoggerFactory.getLogger(Lec11MovieRecommenderTest.class);
+    private static final Logger log = LoggerFactory.getLogger(MovieRecommenderTest.class);
 
     record Movie(String title,
                  Double rating,
@@ -23,7 +23,7 @@ public class Lec11MovieRecommenderTest extends AbstractTest {
 
     }
 
-    record Movies(List<Movie> movies){}
+
 
     @BeforeAll
     public void setup() {
@@ -35,7 +35,7 @@ public class Lec11MovieRecommenderTest extends AbstractTest {
                 - Do not recommend more than 3 movies.
                 """;
         var userPrompt = """
-                Suggest movies similar to {movieTitle}.
+                Suggest movies similar to {movieTitle}. DON'T include {movieTitle} in the recommendations.
                 """;
         this.chatClient = this.builder.defaultSystem(systemPrompt)
                                       .defaultUser(userPrompt)
@@ -54,13 +54,16 @@ public class Lec11MovieRecommenderTest extends AbstractTest {
     }
 
     private List<Movie> recommendSimilarMovies(String movieTitle){
+
+        record Movies(List<Movie> movieList){}
+
         var movies = this.chatClient.prompt()
                                     .advisors(AdvisorParams.ENABLE_NATIVE_STRUCTURED_OUTPUT)
                                     .user(template -> template.param("movieTitle", movieTitle))
                                     .call()
                                     .entity(new ParameterizedTypeReference<Movies>() {
                                     });
-        return Objects.requireNonNullElse(movies.movies(), Collections.emptyList());
+        return Objects.requireNonNullElse(movies.movieList(), Collections.emptyList());
     }
 
 }
