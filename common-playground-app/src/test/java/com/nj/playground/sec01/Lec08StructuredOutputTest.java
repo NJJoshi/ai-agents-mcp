@@ -32,7 +32,31 @@ public class Lec08StructuredOutputTest extends AbstractTest {
         log.info("{}", book);
     }
 
+    /*
+     * OpenAI does not support top-level array types
+     * Use wrapper type as a workaround: record Books(List<Book> list) {}
+     * */
+    @Test
+    public void mapEntitiesFromText() {
+        var prompt = """
+                Extract book details from the below text.
+                
+                Sam published a book on Java Programming in 2016.
+                He also released another book on Python Programming, 3 years later.
+                That same year Mike released a book on Reactive Programming.
+                """;
 
+        record Books(List<Book> list){}
+
+//        var books = this.executePrompt(prompt)
+//                        .entity(new ParameterizedTypeReference<List<Book>>() {
+//                        });
+        var books = this.executePrompt(prompt)
+                .entity(new ParameterizedTypeReference<Books>() {
+                });
+//        books.forEach(book -> log.info("{}", book));
+        log.info("{}", books);
+    }
 
     private ChatClient.CallResponseSpec executePrompt(String prompt) {
         return this.chatClient.prompt(prompt)
