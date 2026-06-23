@@ -46,16 +46,16 @@ public class Lec08StructuredOutputTest extends AbstractTest {
                 That same year Mike released a book on Reactive Programming.
                 """;
 
-        record Books(List<Book> list){}
+//        record Books(List<Book> list){}
 
-//        var books = this.executePrompt(prompt)
-//                        .entity(new ParameterizedTypeReference<List<Book>>() {
-//                        });
         var books = this.executePrompt(prompt)
-                .entity(new ParameterizedTypeReference<Books>() {
-                });
-//        books.forEach(book -> log.info("{}", book));
-        log.info("{}", books);
+                        .entity(new ParameterizedTypeReference<List<Book>>() {
+                        });
+//        var books = this.executePrompt(prompt)
+//                .entity(new ParameterizedTypeReference<Books>() {
+//                });
+        books.forEach(book -> log.info("{}", book));
+//        log.info("{}", books);
     }
 
     private ChatClient.CallResponseSpec executePrompt(String prompt) {

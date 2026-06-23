@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(properties = {
-        "spring.profiles.active=openai"
+        "spring.profiles.active=google"
 })
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class AbstractTest {
