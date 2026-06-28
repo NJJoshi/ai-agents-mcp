@@ -31,7 +31,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public McpSessionManifest mcpSessionManifest(ChatModel chatModel, ToolCallbackProvider toolCallbackProvider,
-                                                 @Value("classpath:${section}/suggested-input.txt")
+                                                 @Value("classpath:${section}/suggested-inputs.txt")
                                                  Resource suggestedUserInputs) throws IOException {
         var modelName = chatModel.getOptions().getModel();
         var tools = Arrays.stream(toolCallbackProvider.getToolCallbacks())
