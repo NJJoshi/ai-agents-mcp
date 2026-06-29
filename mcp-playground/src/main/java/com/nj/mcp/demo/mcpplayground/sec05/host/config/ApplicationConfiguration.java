@@ -24,7 +24,7 @@ public class ApplicationConfiguration {
         var chatMemoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
         return builder.defaultSystem(systemMessage)
                 .defaultTools(toolCallbackProvider) // spring AI 2.0 related changes
-                .defaultAdvisors(spec -> spec.advisors(chatMemoryAdvisor).param(ChatMemory.CONVERSATION_ID, "default"))
+                .defaultAdvisors(chatMemoryAdvisor)
                 .build();
     }
 
