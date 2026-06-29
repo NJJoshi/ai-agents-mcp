@@ -16,7 +16,7 @@ public class SectionRunnerApplication {
     @SpringBootApplication(scanBasePackages = "com.nj.mcp.demo.mcpplayground.${section}.server")
     static class Server {
         static void main(String[] args) {
-            SpringApplication.run(Server.class, "--section=sec04","--config=server", "--version=v1");
+            SpringApplication.run(Server.class, "--section=sec04","--config=server", "--version=v2");
         }
     }
 
